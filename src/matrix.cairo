@@ -1,45 +1,43 @@
 use array::ArrayTrait;
 use option::OptionTrait;
 
-struct Matrix<T> {
+#[derive(Drop)]
+struct Matrix {
     rows: usize,
     cols: usize,
-    data: Array::<T>,
+    data: Array::<u256>,
 }
 
-trait MatrixTrait<T> {
-    fn new(rows: usize, cols: usize, data: Array::<T>) -> Matrix::<T>;
-    fn get(self: Matrix::<T>, i: usize, j: usize) -> T ;
-    fn len(self: Matrix::<T>) -> usize;
+trait MatrixTrait {
+    fn new(rows: usize, cols: usize, data: Array::<u256>) -> Matrix;
+    fn get(self: @Matrix, i: usize, j: usize) -> Option::<u256> ;
+    fn len(self: @Matrix) -> usize;
 }
 
-impl MatrixImpl<T> of MatrixTrait::<T> {
+impl MatrixImpl of MatrixTrait {
     
     #[inline(always)]
-    fn new(rows: usize, cols: usize, data: Array::<T>) -> Matrix::<T> {
+    fn new(rows: usize, cols: usize, data: Array::<u256>) -> Matrix {
         assert(data.len() == rows * cols, 'Matrix not match dimensions');
-        matrix_new(rows_usize, cols_usize, data)
+        matrix_new(rows, cols, data)
     }
 
-    fn get(self: @Matrix::<T>, i: usize, j: usize) -> T {
-        assert(i < self.rows, 'ROW OUT OF BOUNDS');
-        assert(j < self.cols, 'COLUMN OUT OF BOUNDS');
+    fn get(self: @Matrix, i: usize, j: usize) -> Option::<u256> {
+        assert(i < *self.rows, 'row out of bounds');
+        assert(j < *self.cols, 'column out of bounds');
 
-        self.data.get(i_usize * self.cols + j_usize)
+        Option::Some(*self.data.at(i * *self.cols + j))
     }
 
-    fn len(self: Matrix::<T>) -> usize {
+    fn len(self: @Matrix) -> usize {
         self.data.len()
     }
 }
 
-fn matrix_new<T>(rows: usize, cols: usize, data: Array::<T>) -> Matrix::<T> {
-    Matrix::<T> {
-            rows: rows_usize,
-            cols: cols_usize,
+fn matrix_new(rows: usize, cols: usize, data: Array::<u256>) -> Matrix {
+    Matrix {
+            rows: rows,
+            cols: cols,
             data: data,
         }
 }
-
-impl MatrixCopy of Copy::<Matrix>;
-impl MatrixDrop of Drop::<Matrix>;

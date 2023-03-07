@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Neural Network for NIST in Cairo 1.0
+# Neural Network for MNIST in Cairo 1.0
 
 Implementation of a Neural Network from scratch using Cairo 1.0 for MNIST predictions.
 

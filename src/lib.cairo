@@ -2,3 +2,5 @@
 
 mod tests;
 mod matrix;
+mod neural_network;
+mod layers;

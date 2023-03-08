@@ -12,6 +12,10 @@ trait MatrixTrait {
     fn new(rows: usize, cols: usize, data: Array::<u256>) -> Matrix;
     fn get(self: @Matrix, i: usize, j: usize) -> Option::<u256> ;
     fn len(self: @Matrix) -> usize;
+    // Need to add:
+    // - add
+    // - dot_product
+    // - exp
 }
 
 impl MatrixImpl of MatrixTrait {

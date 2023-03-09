@@ -13,9 +13,11 @@ The NN has a simple two-layer architecture:
   - A hidden layer 𝑎[1] will have 10 units with ReLU activation.
   - Output layer 𝑎[2] will have 10 units corresponding to the ten digit classes with softmax activation.
 
-Functionalities implemented in Cairo 1:
+Functionalities implemented in Cairo 1.0:
  - Matrix implementation.
+ - Tensor implementation.
  - 8-bit weight quantization.
+ - Fully connected layer.
  - ReLU layer imaplementation.
  - Softmax activation.
 

@@ -1,8 +1,8 @@
 use array::ArrayTrait;
 use option::OptionTrait;
 
-use neural_network::matrix::Matrix;
-use neural_network::matrix::MatrixTrait;
+use neural_network::math::matrix::Matrix;
+use neural_network::math::matrix::MatrixTrait;
 
 #[derive(Drop)]
 struct NeuralNetwork {

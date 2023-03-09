@@ -1,6 +1,6 @@
 // All modules must be present here
 
 mod tests;
-mod matrix;
+mod math;
 mod neural_network;
 mod layers;

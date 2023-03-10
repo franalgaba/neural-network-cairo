@@ -7,6 +7,7 @@ use neural_network::math::matrix::MatrixTrait;
 use neural_network::math::int33;
 use neural_network::math::int33::i33;
 
+impl Arrayi33Drop of Drop::<Array::<i33>>;
 
 #[test]
 #[available_gas(2000000)]
@@ -53,4 +54,39 @@ fn matrix_get_test() {
 
     assert(result.inner == 4_u32, 'result[8] == -4');
     assert(result.sign == true, 'result[8] == -4');
+}
+
+#[test]
+#[available_gas(2000000)]
+fn dot_test() {
+    // Test with random numbers
+
+    let mut data = ArrayTrait::new();
+    data.append(i33 { inner: 87_u32, sign: false });
+    data.append(i33 { inner: 28_u32, sign: true });
+    data.append(i33 { inner: 104_u32, sign: true });
+    data.append(i33 { inner: 42_u32, sign: false });
+    data.append(i33 { inner: 6_u32, sign: true });
+    data.append(i33 { inner: 75_u32, sign: false });
+
+    let matrix = MatrixTrait::new(2_usize, 3_usize, data);
+
+    let mut vec = ArrayTrait::new();
+    vec.append(i33 { inner: 3_u32, sign: false });
+    vec.append(i33 { inner: 63_u32, sign: true });
+    vec.append(i33 { inner: 31_u32, sign: false });
+
+    let new_matrix = MatrixTrait::new(3_usize, 1_usize, vec);
+
+    let mut result = matrix.dot(@new_matrix);
+
+    assert(result.len() == 2_usize, 'result.len() == 2');
+
+    let data_0 = result.get(0_usize, 0_usize);
+    assert(data_0.inner == 1199_u32, 'result[0] == -1199');
+    assert(data_0.sign == true, 'result[0] == -1199');
+
+    let data_1 = result.get(1_usize, 0_usize);
+    assert(data_1.inner == 2829_u32, 'result[0] == 2829');
+    assert(data_1.sign == false, 'result[0] == 2829');
 }

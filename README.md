@@ -16,9 +16,9 @@ The NN has a simple two-layer architecture:
 Functionalities implemented in Cairo 1.0:
  - Matrix implementation.
  - Tensor implementation.
- - 8-bit weight quantization.
+ - 8-bit weight quantization based in [ONNX quantization](https://onnxruntime.ai/docs/performance/quantization.html#quantization-overview).
  - Fully connected layer.
- - ReLU layer imaplementation.
+ - ReLU activation.
  - Softmax activation.
 
 [Built with **`auditless/cairo-template`**](https://github.com/auditless/cairo-template)

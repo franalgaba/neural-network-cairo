@@ -16,7 +16,7 @@ struct Matrix {
 trait MatrixTrait {
     fn new(rows: usize, cols: usize, data: Array::<i33>) -> Matrix;
     fn get(self: @Matrix, i: usize, j: usize) -> i33 ;
-    fn dot(self: @Matrix, other: Matrix) -> Matrix;
+    fn dot(self: @Matrix, other: @Matrix) -> Matrix;
     fn len(self: @Matrix) -> usize;
     // Need to add:
     // - add
@@ -25,7 +25,7 @@ trait MatrixTrait {
 
 impl MatrixImpl of MatrixTrait {
     
-    #[inline(always)]
+    // #[inline(always)]
     fn new(rows: usize, cols: usize, data: Array::<i33>) -> Matrix {
         assert(data.len() == rows * cols, 'Matrix not match dimensions');
         matrix_new(rows, cols, data)
@@ -38,15 +38,13 @@ impl MatrixImpl of MatrixTrait {
         *self.data.at(i * *self.cols + j)
     }
 
-    fn dot(self: @Matrix, other: Matrix) -> Matrix {
+    fn dot(self: @Matrix, other: @Matrix) -> Matrix {
 
         let mut arr = ArrayTrait::<i33>::new();
-        let mut row_index = 0_usize;
-        let mut col_index = 0_usize;
-        
-        _dot_inner(self, ref arr, other, ref row_index, ref col_index);
+      
+        _dot_inner(self, ref arr, other, 0_usize);
 
-        MatrixTrait::new(other.rows, other.cols, arr)
+        MatrixTrait::new(*self.rows, *other.cols, arr)
     }
 
     fn len(self: @Matrix) -> usize {
@@ -63,37 +61,77 @@ fn matrix_new(rows: usize, cols: usize, data: Array::<i33>) -> Matrix {
         }
 }
 
-fn _row_dot_vec(self: @Matrix, ref arr: Array::<i33>, other: Matrix, ref row_index: usize, ref col_index: usize) -> i33 {
+fn _row_dot_vec(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize, col_index: usize) -> i33 {
 
-    // --- End of the recursion ---
-    if (col_index == other.cols) {
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+
+    // End of the recursion
+    if (col_index == *self.cols) {
         return (i33 { inner: 0_u32, sign: true });
     }
 
-    // --- Calculates the product ---
-    let ele = self.data.get(other.cols * other.rows + col_index);
-    let result = ele * other.data.get(col_index);
+    let mut ele = i33 { inner: 0_u32, sign: true };
+    // Calculates the product
+    match self.data.get(*self.cols * row_index + col_index) {
+        Option::Some(x) => {
+            ele = *x;
+        },
+        Option::None(_) => {
+            let mut data = ArrayTrait::new();
+            data.append('out of bounds');
+            panic(data)
+        }
+    } 
 
-    col_index = col_index + 1_usize;
-    let acc = _row_dot_vec(self, ref arr, other, ref row_index, ref col_index);
+    let mut other_ele = i33 { inner: 0_u32, sign: true };
+    match other.data.get(col_index) {
+        Option::Some(x) => {
+            other_ele = *x;
+        },
+        Option::None(_) => {
+            let mut data = ArrayTrait::new();
+            data.append('out of bounds');
+            panic(data)
+        }
+    }
+    let result = ele * other_ele;
+    let acc = _row_dot_vec(self, ref arr, other, row_index, col_index + 1_usize);
+    
 
-    // --- Returns the sum of the current product with the previous ones ---
+    // Returns the sum of the current product with the previous ones
     return acc + result;
 }
 
 
-fn _dot_inner(self: @Matrix, ref arr: Array::<i33>, other: Matrix, ref row_index: usize, ref col_index: usize) {
+fn _dot_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize) {
 
-    // --- End of the recursion ---
-    if row_index == other.rows {
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+
+    // End of the recursion
+    if row_index == *self.rows {
         return ();
     }
 
-    // --- Compute dot product of the row ---
-    let dot = _row_dot_vec(self, ref arr, other, ref row_index, ref col_index);
+    // Compute dot product of the row
+    let dot = _row_dot_vec(self, ref arr, other, row_index, 0_usize);
 
     arr.append(dot);
-    row_index = row_index + 1_usize;
-    _dot_inner(self, ref arr, other, ref row_index, ref col_index)
+    _dot_inner(self, ref arr, other, row_index + 1_usize);
 
 }

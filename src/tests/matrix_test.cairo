@@ -90,3 +90,46 @@ fn dot_test() {
     assert(data_1.inner == 2829_u32, 'result[0] == 2829');
     assert(data_1.sign == false, 'result[0] == 2829');
 }
+
+
+#[test]
+#[available_gas(2000000)]
+fn add_test() {
+    // Test with random numbers
+
+    let mut vec = ArrayTrait::new();
+    vec.append(i33 { inner: 1_u32, sign: false });
+    vec.append(i33 { inner: 2_u32, sign: false });
+    vec.append(i33 { inner: 3_u32, sign: false });
+    vec.append(i33 { inner: 4_u32, sign: false });
+
+    let matrix = MatrixTrait::new(2_usize, 2_usize, vec);
+
+    let mut new_vec = ArrayTrait::new();
+    new_vec.append(i33 { inner: 1_u32, sign: false });
+    new_vec.append(i33 { inner: 2_u32, sign: false });
+    new_vec.append(i33 { inner: 3_u32, sign: false });
+    new_vec.append(i33 { inner: 4_u32, sign: false });
+
+    let new_matrix = MatrixTrait::new(2_usize, 2_usize, new_vec);
+
+    let mut result = matrix.add(@new_matrix);
+
+    assert(result.len() == 4_usize, 'result.len() == 4');
+
+    let data_0 = result.get(0_usize, 0_usize);
+    assert(data_0.inner == 2_u32, 'result[0] == 2');
+    assert(data_0.sign == false, 'result[0] == 2');
+
+    let data_1 = result.get(0_usize, 1_usize);
+    assert(data_0.inner == 4_u32, 'result[0] == 4');
+    assert(data_0.sign == false, 'result[0] == 4');
+
+    let data_2 = result.get(1_usize, 0_usize);
+    assert(data_0.inner == 6_u32, 'result[0] == 6');
+    assert(data_0.sign == false, 'result[0] == 6');
+
+    let data_3 = result.get(1_usize, 1_usize);
+    assert(data_0.inner == 8_u32, 'result[0] == 8');
+    assert(data_0.sign == false, 'result[0] == 8');
+}

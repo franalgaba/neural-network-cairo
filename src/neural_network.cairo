@@ -37,7 +37,7 @@ impl NNImpl of NNTrait {
     }
 
     fn predict(self: @NeuralNetwork, X: @Matrix) -> Matrix {
-        let mut A2 = forward_prop(self, X);
+        let mut A2 = self.forward_prop(X);
         // calculate the argmax of the final layer
         // A2 = argmax(A2)
         A2

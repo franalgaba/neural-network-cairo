@@ -19,18 +19,30 @@ trait MatrixTrait {
     fn dot(self: @Matrix, other: @Matrix) -> Matrix;
     fn add(self: @Matrix, other: @Matrix) -> Matrix;
     fn len(self: @Matrix) -> usize;
-    // Need to add:
-    // - exp
 }
 
 impl MatrixImpl of MatrixTrait {
     
-    // #[inline(always)]
     fn new(rows: usize, cols: usize, data: Array::<i33>) -> Matrix {
         assert(data.len() == rows * cols, 'Matrix not match dimensions');
         matrix_new(rows, cols, data)
     }
 
+    /// Gets the value of a particular element in the matrix.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - A reference to the matrix.
+    /// * `i` - The row index of the element.
+    /// * `j` - The column index of the element.
+    ///
+    /// # Returns
+    ///
+    /// The value of the element at the specified row and column.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the row index or column index is out of bounds.
     fn get(self: @Matrix, i: usize, j: usize) -> i33 {
         assert(i < *self.rows, 'row out of bounds');
         assert(j < *self.cols, 'column out of bounds');
@@ -38,6 +50,20 @@ impl MatrixImpl of MatrixTrait {
         *self.data.at(i * *self.cols + j)
     }
 
+    /// Computes the matrix dot product of this matrix and another matrix.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - A reference to the left-hand matrix.
+    /// * `other` - A reference to the right-hand matrix.
+    ///
+    /// # Returns
+    ///
+    /// A new matrix that is the matrix dot product of this matrix and the other matrix.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the number of columns in the left-hand matrix does not match the number of rows in the right-hand matrix.
     fn dot(self: @Matrix, other: @Matrix) -> Matrix {
 
         let mut arr = ArrayTrait::<i33>::new();
@@ -47,10 +73,24 @@ impl MatrixImpl of MatrixTrait {
         MatrixTrait::new(*self.rows, *other.cols, arr)
     }
 
+    /// Adds another matrix to this matrix element-wise.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - A reference to the matrix.
+    /// * `other` - A reference to the matrix to be added.
+    ///
+    /// # Returns
+    ///
+    /// A new matrix that is the element-wise sum of this matrix and the other matrix.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the input matrices have different dimensions.
     fn add(self: @Matrix, other: @Matrix) -> Matrix {
 
-        // assert(*self.rows == *other.rows, 'Matrix not match dimensions');
-        // assert(*self.cols == *other.cols, 'Matrix not match dimensions');
+        assert(*self.rows == *other.rows, 'Matrix not match dimensions');
+        assert(*self.cols == *other.cols, 'Matrix not match dimensions');
 
         let mut arr = ArrayTrait::<i33>::new();
       
@@ -59,6 +99,15 @@ impl MatrixImpl of MatrixTrait {
         MatrixTrait::new(*self.rows, *self.cols, arr)
     }
 
+    /// Returns the number of elements in the matrix.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - A reference to the matrix.
+    ///
+    /// # Returns
+    ///
+    /// The number of elements in the matrix.
     fn len(self: @Matrix) -> usize {
         self.data.len()
     }

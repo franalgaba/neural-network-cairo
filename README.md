@@ -18,6 +18,8 @@ Functionalities implemented in Cairo 1.0:
  - [X] Tensor implementation.
  - [X] 8-bit weight quantization based in [ONNX quantization](https://onnxruntime.ai/docs/performance/quantization.html#quantization-overview).
  - [X] ReLU activation.
+ - [X] Forward propagation of NN.
+ - [X] Predict method for NN.
  - [ ] [Pseudo-softmax activation](https://www.nature.com/articles/s41598-021-94691-7) optimized for quantized values.
 
 [Built with **`auditless/cairo-template`**](https://github.com/auditless/cairo-template)

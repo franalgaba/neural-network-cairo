@@ -122,14 +122,14 @@ fn add_test() {
     assert(data_0.sign == false, 'result[0] == 2');
 
     let data_1 = result.get(0_usize, 1_usize);
-    assert(data_0.inner == 4_u32, 'result[0] == 4');
-    assert(data_0.sign == false, 'result[0] == 4');
+    assert(data_1.inner == 4_u32, 'result[1] == 4');
+    assert(data_1.sign == false, 'result[1] == 4');
 
     let data_2 = result.get(1_usize, 0_usize);
-    assert(data_0.inner == 6_u32, 'result[0] == 6');
-    assert(data_0.sign == false, 'result[0] == 6');
+    assert(data_2.inner == 6_u32, 'result[2] == 6');
+    assert(data_2.sign == false, 'result[2] == 6');
 
     let data_3 = result.get(1_usize, 1_usize);
-    assert(data_0.inner == 8_u32, 'result[0] == 8');
-    assert(data_0.sign == false, 'result[0] == 8');
+    assert(data_3.inner == 8_u32, 'result[3] == 8');
+    assert(data_3.sign == false, 'result[3] == 8');
 }

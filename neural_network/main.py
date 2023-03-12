@@ -4,6 +4,20 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
+def quantize(signal):
+    scale = 0.01
+    min_val = -127
+    max_val = 127
+    zero_point = np.round((min_val + max_val) / 2 / scale)
+
+    # adjust the scaling parameter to avoid overflow
+    max_val = np.max(signal)
+    while (max_val / scale + zero_point) > 255:
+        scale *= 2
+    
+    quantized_signal = np.round(signal / scale + zero_point).astype(np.uint8)
+    quantized_signal_norm = (quantized_signal.astype(np.float32) - zero_point) * scale
+    return quantized_signal_norm
 
 def init_params():
     W1 = np.random.rand(10, 784) - 0.5
@@ -83,12 +97,12 @@ def test_prediction(index, W1, b1, W2, b2):
     print("Prediction: ", prediction)
     print("Label: ", label)
     
-    current_image = current_image.reshape((28, 28)) * 255
-    plt.gray()
-    plt.imshow(current_image, interpolation='nearest')
-    plt.show()
+    # current_image = current_image.reshape((28, 28)) * 255
+    # plt.gray()
+    # plt.imshow(current_image, interpolation='nearest')
+    # plt.show()
 
-if __main__ == '__name__':
+if __name__ == "__main__":
     data = pd.read_csv('./train.csv')
 
     data = np.array(data)
@@ -108,10 +122,19 @@ if __main__ == '__name__':
 
     W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 0.10, 500)
 
+    print("--- No Quantization acc ---")
     test_prediction(0, W1, b1, W2, b2)
     test_prediction(1, W1, b1, W2, b2)
     test_prediction(2, W1, b1, W2, b2)
     test_prediction(3, W1, b1, W2, b2)
 
-    dev_predictions = make_predictions(X_dev, W1, b1, W2, b2)
-    get_accuracy(dev_predictions, Y_dev)
+    print("--- Quantization acc ---")
+    W1 = quantize(W1)
+    b1 = quantize(b1)
+    W2 = quantize(W2)
+    b2 = quantize(b2)
+
+    test_prediction(0, W1, b1, W2, b2)
+    test_prediction(1, W1, b1, W2, b2)
+    test_prediction(2, W1, b1, W2, b2)
+    test_prediction(3, W1, b1, W2, b2)

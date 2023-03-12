@@ -1,2 +1,2 @@
-// mod softmax;
-// mod relu;
+// TODO: mod softmax;
+mod relu;

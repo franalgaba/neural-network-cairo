@@ -3,11 +3,11 @@
 
 use array::ArrayTrait;
 use option::OptionTrait;
-use cairo_ml::math::int33;
-use cairo_ml::math::int33::i33;
-use cairo_ml::math::int33::max;
-use cairo_ml::math::int33::abs;
-use cairo_ml::math::vector::find_min_max;
+use neural_network::math::int33;
+use neural_network::math::int33::i33;
+use neural_network::math::int33::max;
+use neural_network::math::int33::abs;
+use neural_network::math::vector::find_min_max;
 
 impl Arrayi33Drop of Drop::<Array::<i33>>;
 

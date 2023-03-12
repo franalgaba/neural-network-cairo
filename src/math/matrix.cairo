@@ -20,7 +20,6 @@ trait MatrixTrait {
     fn add(self: @Matrix, other: @Matrix) -> Matrix;
     fn len(self: @Matrix) -> usize;
     // Need to add:
-    // - add
     // - exp
 }
 

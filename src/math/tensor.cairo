@@ -21,7 +21,6 @@ trait TensorTrait {
 }
 
 impl TensorImpl of TensorTrait {
-    
     #[inline(always)]
     fn new(rows: usize, cols: usize, depth: usize, data: Array::<Matrix>) -> Tensor {
         assert(data.len() == rows * cols * depth, 'Tensor not match dimensions');
@@ -30,10 +29,5 @@ impl TensorImpl of TensorTrait {
 }
 
 fn tensor_new(rows: usize, cols: usize, depth: usize, data: Array::<Matrix>) -> Tensor {
-    Tensor {
-            rows: rows,
-            cols: cols,
-            depth: depth,
-            data: data,
-        }
+    Tensor { rows: rows, cols: cols, depth: depth, data: data,  }
 }

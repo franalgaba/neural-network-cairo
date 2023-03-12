@@ -34,5 +34,4 @@ fn relu_test() {
     let data_4 = result_matrix.get(1_usize, 1_usize);
     assert(data_4.inner == 0_u32, 'result[4] == 0');
     assert(data_4.sign == true, 'result[4] == 0');
-
 }

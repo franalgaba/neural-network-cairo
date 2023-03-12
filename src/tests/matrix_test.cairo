@@ -32,7 +32,6 @@ fn matrix_new_test() {
 #[test]
 #[available_gas(2000000)]
 fn matrix_get_test() {
-
     let mut arr = ArrayTrait::<i33>::new();
     let val_1 = i33 { inner: 1_u32, sign: false };
     let val_2 = i33 { inner: 2_u32, sign: true };

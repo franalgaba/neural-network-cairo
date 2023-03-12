@@ -15,24 +15,25 @@ use neural_network::math::int33::i33;
 
 // The implementation is using pseudo-softmax for now
 fn softmax(z: Matrix) -> Matrix {
-        let mut exponential_arr = ArrayTrait::<i33>::new();
-        
-        // 2. Calculate exponential for every item
-        exponential_inner(ref exponential_arr, z.data, 0_usize, z.data.len());
+    let mut exponential_arr = ArrayTrait::<i33>::new();
 
-        // 3. Sum all the exponentials in the input vector
-        let mut exp_sum = i33 { inner: 0_u32, sign: true };
-        exponential_sum_inner(ref exp_sum, exponential_arr, 0_usize, exponential_arr.len());
+    // 2. Calculate exponential for every item
+    exponential_inner(ref exponential_arr, z.data, 0_usize, z.data.len());
 
-        // 4. Divide each exponential value by the sum of exponentials
-        let mut divided_exponentials = ArrayTrait::<i33>::new();
-        divide_exponentials_inner(ref divided_exponentials, exp_sum, 0_usize, exponential_arr.len());
+    // 3. Sum all the exponentials in the input vector
+    let mut exp_sum = i33 { inner: 0_u32, sign: true };
+    exponential_sum_inner(ref exp_sum, exponential_arr, 0_usize, exponential_arr.len());
 
-        MatrixTrait::new(z.rows, z.cols, divided_exponentials)
-    }
+    // 4. Divide each exponential value by the sum of exponentials
+    let mut divided_exponentials = ArrayTrait::<i33>::new();
+    divide_exponentials_inner(ref divided_exponentials, exp_sum, 0_usize, exponential_arr.len());
 
-fn exponential_inner(ref exponential_arr: Array::<i33>, input: Array::<i33>, index: usize, len: usize) -> Array::<i33> {
+    MatrixTrait::new(z.rows, z.cols, divided_exponentials)
+}
 
+fn exponential_inner(
+    ref exponential_arr: Array::<i33>, input: Array::<i33>, index: usize, len: usize
+) -> Array::<i33> {
     if index == len {
         return (i33 { inner: 0_u32, sign: true });
     }
@@ -48,8 +49,9 @@ fn exponential_inner(ref exponential_arr: Array::<i33>, input: Array::<i33>, ind
     exponential_inner(ref exponential_arr, input, index + 1_usize, len)
 }
 
-fn exponential_sum_inner(ref exp_sum: i33, exponential_arr: Array::<i33>, index: usize, len: usize) -> i33 {
-
+fn exponential_sum_inner(
+    ref exp_sum: i33, exponential_arr: Array::<i33>, index: usize, len: usize
+) -> i33 {
     if index == len {
         return (i33 { inner: 0_u32, sign: true });
     }
@@ -59,8 +61,9 @@ fn exponential_sum_inner(ref exp_sum: i33, exponential_arr: Array::<i33>, index:
     exponential_sum_inner(ref exp_sum, exponential_arr, index + 1_usize, len)
 }
 
-fn divide_exponentials_inner(ref divided_exponentials: Array::<i33>, exp_sum: i33, index: usize, len: usize) -> Array::<i33> {
-    
+fn divide_exponentials_inner(
+    ref divided_exponentials: Array::<i33>, exp_sum: i33, index: usize, len: usize
+) -> Array::<i33> {
     if index == len {
         return (i33 { inner: 0_u32, sign: true });
     }

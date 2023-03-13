@@ -93,3 +93,115 @@ fn __find_min_max(ref vec: Array::<i33>, ref min_value: i33, ref max_value: i33,
     // --- The process is repeated for the remaining elemets in the array --- 
     __find_min_max(ref vec, ref min_value, ref max_value, n + 1_usize);
 }
+
+//=====================================================//
+//=================== FIND MIN IN VECTOR ==============//
+//=====================================================//
+
+fn find_min(vec: @Array::<i33>) -> i33 {
+    // Initialize variables.
+    let mut min_value = i33 { inner: 65535_u32, sign: false };
+
+    __find_min(vec, ref min_value, 0_usize);
+
+    return min_value;
+}
+
+fn __find_min(vec: @Array::<i33>, ref min_value: i33, n: usize) {
+    // --- Check if out of gas ---
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+    // --- End of the recursion ---
+    if n == vec.len() {
+        return ();
+    }
+
+    // --- Check the minimum value and update min_value if necessary --- 
+    let check_min = int33::min(min_value, *vec.at(n));
+    if (min_value != check_min) {
+        min_value = check_min;
+    }
+
+    // --- The process is repeated for the remaining elemets in the array --- 
+    __find_min(vec, ref min_value, n + 1_usize);
+}
+
+
+//=================================================//
+//=================== SUM VECTOR ==================//
+//=================================================//
+fn sum_vec(vec: @Array::<i33>) -> i33 {
+    // Initialize variables.
+    let mut result = i33 { inner: 0_u32, sign: false };
+
+    __sum_vec(vec, ref result, 0_usize);
+
+    result
+}
+
+fn __sum_vec(vec: @Array::<i33>, ref result: i33, n: usize) {
+    // --- Check if out of gas ---
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+
+    // --- End of the recursion ---
+    if n == vec.len() {
+        return ();
+    }
+
+    result = result + *vec.at(n);
+    __sum_vec(vec, ref result, n + 1_usize);
+}
+
+//====================================================//
+//=================== ARGMAX VECTOR ==================//
+//====================================================//
+fn argmax_vec(vec: @Array::<i33>) -> i33 {
+    // Initialize variables.
+    let mut result = i33 { inner: 0_u32, sign: false };
+    let max_value = i33 { inner: 0_u32, sign: false };
+
+    __argmax_vec(vec, ref result, max_value, 0_usize);
+
+    result
+}
+
+fn __argmax_vec(vec: @Array::<i33>, ref result: i33, max_value: i33, n: usize) {
+    // --- Check if out of gas ---
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+
+    // --- End of the recursion ---
+    if n == vec.len() {
+        return ();
+    }
+
+    if *vec.at(n) > max_value {
+        let mut temp_result = *vec.at(n);
+        result = temp_result;
+        let max_value = *vec.at(n);
+    }
+
+    __argmax_vec(vec, ref result, max_value, n + 1_usize);
+}

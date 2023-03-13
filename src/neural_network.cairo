@@ -1,9 +1,14 @@
 use array::ArrayTrait;
 use option::OptionTrait;
 
+use neural_network::math::int33;
+use neural_network::math::int33::i33;
 use neural_network::math::matrix::Matrix;
 use neural_network::math::matrix::MatrixTrait;
+use neural_network::math::vector::argmax_vec;
 use neural_network::activations::relu::relu;
+use neural_network::activations::softmax::softmax;
+
 
 #[derive(Drop)]
 struct NeuralNetwork {
@@ -16,7 +21,7 @@ struct NeuralNetwork {
 trait NNTrait {
     fn new(W1: Matrix, b1: Matrix, W2: Matrix, b2: Matrix) -> NeuralNetwork;
     fn forward_prop(self: @NeuralNetwork, X: @Matrix) -> Matrix;
-    fn predict(self: @NeuralNetwork, X: @Matrix) -> Matrix;
+    fn predict(self: @NeuralNetwork, X: @Matrix) -> i33;
 }
 
 impl NNImpl of NNTrait {
@@ -31,15 +36,14 @@ impl NNImpl of NNTrait {
         let mut A1 = relu(@Z1);
         let mut Z2_temp = self.W2.dot(@A1);
         let mut Z2 = Z2_temp.add(self.b2);
-        // A2 = softmax(Z2)
-        Z2
-        // A2
+        let mut A2 = softmax(@Z2);
+        A2
     }
 
-    fn predict(self: @NeuralNetwork, X: @Matrix) -> Matrix {
+    fn predict(self: @NeuralNetwork, X: @Matrix) -> i33 {
         let mut A2 = self.forward_prop(X);
         // calculate the argmax of the final layer
-        // A2 = argmax(A2)
+        A2 = argmax_vec(@A2.data);
         A2
     }
 

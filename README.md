@@ -14,13 +14,16 @@ The NN has a simple two-layer architecture:
   - Output layer 𝑎[2] will have 10 units corresponding to the ten digit classes with softmax activation.
 
 Functionalities implemented in Cairo 1.0:
- - [X] Matrix implementation.
+ - [X] Vector implementation with operations: sum, max, min, argmax.
+ - [X] Matrix implementation with operations: get, dot, add, len.
  - [X] Tensor implementation.
  - [X] 8-bit weight quantization based in [ONNX quantization](https://onnxruntime.ai/docs/performance/quantization.html#quantization-overview).
  - [X] ReLU activation.
  - [X] Forward propagation of NN.
  - [X] Predict method for NN.
- - [ ] [Pseudo-softmax activation](https://www.nature.com/articles/s41598-021-94691-7) optimized for quantized values.
+ - [X] [Pseudo-softmax activation](https://www.nature.com/articles/s41598-021-94691-7) optimized for quantized values.
+ - [ ] Weight loading into Cairo NN from trained Python NN.
+ - [ ] MNIST inferences using Cairo NN.
 
 [Built with **`auditless/cairo-template`**](https://github.com/auditless/cairo-template)
 

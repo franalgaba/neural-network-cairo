@@ -34,9 +34,11 @@ fn relu_inner(ref arr: Array::<i33>, input: @Array::<i33>, index: usize, len: us
     let val_0 = (i33 { inner: 0_u32, sign: true });
 
     // if x > 0 -> x
-    if *input.at(index) > val_0 {
+    if *input.at(
+        index
+    ) > val_0 {
         arr.append(*input.at(index));
-    }// if x < 0 -> 0
+    } // if x < 0 -> 0
     else {
         arr.append(val_0);
     }

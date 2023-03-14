@@ -24,7 +24,6 @@ trait NNTrait {
 }
 
 impl NNImpl of NNTrait {
-
     fn new(W1: Matrix, b1: Matrix, W2: Matrix, b2: Matrix) -> NeuralNetwork {
         nn_new(W1, b1, W2, b2)
     }
@@ -45,7 +44,6 @@ impl NNImpl of NNTrait {
         let mut predictions = A2.argmax();
         predictions
     }
-
 }
 
 fn nn_new(W1: Matrix, b1: Matrix, W2: Matrix, b2: Matrix) -> NeuralNetwork {

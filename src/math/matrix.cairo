@@ -287,7 +287,12 @@ fn _add_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: u
 // *****************
 
 fn _row_argmax_vec(
-    self: @Matrix, ref arr: Array::<usize>, max_index: usize, max_value: i33, row_index: usize, col_index: usize
+    self: @Matrix,
+    ref arr: Array::<usize>,
+    max_index: usize,
+    max_value: i33,
+    row_index: usize,
+    col_index: usize
 ) {
     // TODO: Remove when automatically handled by compiler.
     match gas::get_gas() {
@@ -308,11 +313,9 @@ fn _row_argmax_vec(
     let current_value = self.get(row_index, col_index);
     if current_value > max_value {
         _row_argmax_vec(self, ref arr, col_index, current_value, row_index, col_index + 1_usize);
-    }
-    else {
+    } else {
         _row_argmax_vec(self, ref arr, max_index, max_value, row_index, col_index + 1_usize);
     }
-
 }
 
 

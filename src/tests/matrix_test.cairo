@@ -132,3 +132,22 @@ fn add_test() {
     assert(data_3.inner == 8_u32, 'result[3] == 8');
     assert(data_3.sign == false, 'result[3] == 8');
 }
+
+
+#[test]
+#[available_gas(2000000)]
+fn argmax_test() {
+    // Test with random numbers
+
+    let mut vec = ArrayTrait::new();
+    vec.append(i33 { inner: 1_u32, sign: false });
+    vec.append(i33 { inner: 2_u32, sign: false });
+    vec.append(i33 { inner: 3_u32, sign: false });
+    vec.append(i33 { inner: 4_u32, sign: false });
+
+    let matrix = MatrixTrait::new(2_usize, 2_usize, vec);
+    let mut result = matrix.argmax();
+
+    assert(*result.at(0_usize) == 1_usize, 'row 0 max index: 1');
+    assert(*result.at(1_usize) == 1_usize, 'row 1 max index: 1');
+}

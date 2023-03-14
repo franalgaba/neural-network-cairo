@@ -2,6 +2,8 @@ use array::ArrayTrait;
 use option::OptionTrait;
 use neural_network::math::vector::sum_two_vec;
 use neural_network::math::vector::find_min_max;
+use neural_network::math::vector::find_min;
+use neural_network::math::vector::sum_vec;
 use neural_network::math::int33::i33;
 
 impl Arrayi33Drop of Drop::<Array::<i33>>;
@@ -71,7 +73,7 @@ fn sum_test() {
 
 #[test]
 #[available_gas(2000000)]
-fn find_min_test() {
+fn find_max_min_test() {
     let mut vec = ArrayTrait::new();
     vec.append(i33 { inner: 80_u32, sign: false });
     vec.append(i33 { inner: 80_u32, sign: true });
@@ -86,4 +88,36 @@ fn find_min_test() {
 
     assert(min.inner == 128_u32 & min.sign == true, 'min: -128');
     assert(max.inner == 127_u32 & max.sign == false, 'max: 127');
+}
+
+#[test]
+#[available_gas(2000000)]
+fn find_min_test() {
+    let mut vec = ArrayTrait::new();
+    vec.append(i33 { inner: 80_u32, sign: false });
+    vec.append(i33 { inner: 80_u32, sign: true });
+    vec.append(i33 { inner: 50_u32, sign: false });
+    vec.append(i33 { inner: 50_u32, sign: true });
+    vec.append(i33 { inner: 25_u32, sign: false });
+    vec.append(i33 { inner: 25_u32, sign: true });
+    vec.append(i33 { inner: 127_u32, sign: false });
+    vec.append(i33 { inner: 128_u32, sign: true });
+
+    let min = find_min(@vec);
+
+    assert(min.inner == 128_u32 & min.sign == true, 'min: -128');
+}
+
+
+#[test]
+#[available_gas(2000000)]
+fn sum_vec_test() {
+    let mut vec = ArrayTrait::new();
+    vec.append(i33 { inner: 80_u32, sign: false });
+    vec.append(i33 { inner: 80_u32, sign: true });
+    vec.append(i33 { inner: 50_u32, sign: false });
+
+    let min = sum_vec(@vec);
+
+    assert(min.inner == 50_u32 & min.sign == false, 'sum: 50');
 }

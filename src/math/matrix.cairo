@@ -19,6 +19,7 @@ trait MatrixTrait {
     fn dot(self: @Matrix, other: @Matrix) -> Matrix;
     fn add(self: @Matrix, other: @Matrix) -> Matrix;
     fn len(self: @Matrix) -> usize;
+    fn argmax(self: @Matrix) -> Array::<usize>;
 }
 
 impl MatrixImpl of MatrixTrait {
@@ -107,6 +108,23 @@ impl MatrixImpl of MatrixTrait {
     /// The number of elements in the matrix.
     fn len(self: @Matrix) -> usize {
         self.data.len()
+    }
+
+    /// Returns an array of the indices of the maximum values in the matrix along axis 0.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - A reference to the matrix.
+    ///
+    /// # Returns
+    ///
+    /// An array of the indices of the maximum values in the matrix along axis 0.
+    fn argmax(self: @Matrix) -> Array::<usize> {
+        let mut arr = ArrayTrait::<usize>::new();
+
+        _argmax_inner(self, ref arr, 0_usize);
+
+        arr
     }
 }
 
@@ -262,5 +280,61 @@ fn _add_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: u
     _row_add_vec(self, ref arr, other, row_index, 0_usize);
 
     _add_inner(self, ref arr, other, row_index + 1_usize);
+}
+
+// *****************
+// * Matrix ARGMAX *
+// *****************
+
+fn _row_argmax_vec(
+    self: @Matrix, ref arr: Array::<usize>, max_index: usize, max_value: i33, row_index: usize, col_index: usize
+) {
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+
+    // End of the recursion
+    if (col_index == *self.cols) {
+        arr.append(max_index);
+        return ();
+    }
+
+    let current_value = self.get(row_index, col_index);
+    if current_value > max_value {
+        _row_argmax_vec(self, ref arr, col_index, current_value, row_index, col_index + 1_usize);
+    }
+    else {
+        _row_argmax_vec(self, ref arr, max_index, max_value, row_index, col_index + 1_usize);
+    }
+
+}
+
+
+fn _argmax_inner(self: @Matrix, ref arr: Array::<usize>, row_index: usize) {
+    // TODO: Remove when automatically handled by compiler.
+    match gas::get_gas() {
+        Option::Some(_) => {},
+        Option::None(_) => {
+            let mut data = array_new::<felt>();
+            array_append::<felt>(ref data, 'OOG');
+            panic(data);
+        },
+    }
+
+    // End of the recursion
+    if row_index == *self.rows {
+        return ();
+    }
+
+    // Compute dot product of the row
+    _row_argmax_vec(self, ref arr, 0_usize, i33 { inner: 0_u32, sign: true }, row_index, 0_usize);
+
+    _argmax_inner(self, ref arr, row_index + 1_usize);
 }
 

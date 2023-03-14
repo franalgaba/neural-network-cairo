@@ -5,7 +5,6 @@ use neural_network::math::int33;
 use neural_network::math::int33::i33;
 use neural_network::math::matrix::Matrix;
 use neural_network::math::matrix::MatrixTrait;
-use neural_network::math::vector::argmax_vec;
 use neural_network::activations::relu::relu;
 use neural_network::activations::softmax::softmax;
 
@@ -21,11 +20,11 @@ struct NeuralNetwork {
 trait NNTrait {
     fn new(W1: Matrix, b1: Matrix, W2: Matrix, b2: Matrix) -> NeuralNetwork;
     fn forward_prop(self: @NeuralNetwork, X: @Matrix) -> Matrix;
-    fn predict(self: @NeuralNetwork, X: @Matrix) -> i33;
+    fn predict(self: @NeuralNetwork, X: @Matrix) -> Array::<usize>;
 }
 
 impl NNImpl of NNTrait {
-    #[inline(always)]
+
     fn new(W1: Matrix, b1: Matrix, W2: Matrix, b2: Matrix) -> NeuralNetwork {
         nn_new(W1, b1, W2, b2)
     }
@@ -40,11 +39,11 @@ impl NNImpl of NNTrait {
         A2
     }
 
-    fn predict(self: @NeuralNetwork, X: @Matrix) -> i33 {
+    fn predict(self: @NeuralNetwork, X: @Matrix) -> Array::<usize> {
         let mut A2 = self.forward_prop(X);
         // calculate the argmax of the final layer
-        A2 = argmax_vec(@A2.data);
-        A2
+        let mut predictions = A2.argmax();
+        predictions
     }
 
 }

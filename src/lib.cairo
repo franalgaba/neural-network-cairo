@@ -2,7 +2,7 @@
 
 mod tests;
 mod math;
-mod neural_network;
+mod nn;
 mod activations;
 mod performance;
 mod mnist;

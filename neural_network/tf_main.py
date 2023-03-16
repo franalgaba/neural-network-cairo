@@ -7,7 +7,7 @@ range_min, range_max = -128, 127
 
 # Define the network architecture
 model = tf.keras.Sequential([
-    tf.keras.layers.InputLayer(input_shape=(784,)),
+    tf.keras.layers.InputLayer(input_shape=(196,)),
     tf.keras.layers.Dense(10),
     tf.keras.layers.Activation('relu'),
     tf.keras.layers.Dense(10),
@@ -21,8 +21,10 @@ model.compile(optimizer='adam',
 
 # Prepare the data
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-x_train = x_train.reshape(-1, 784).astype(np.float32) #  / 255.0
-x_test = x_test.reshape(-1, 784).astype(np.float32) # / 255.0
+x_train = tf.image.resize(x_train, [14,14]).numpy()
+x_test = tf.image.resize(x_test, [14,14]).numpy()
+x_train = x_train.reshape(-1, 196).astype(np.float32) #  / 255.0
+x_test = x_test.reshape(-1, 196).astype(np.float32) # / 255.0
 
 # Train the model
 model.fit(x_train, y_train, epochs=50)

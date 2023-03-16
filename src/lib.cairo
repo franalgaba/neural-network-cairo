@@ -5,3 +5,4 @@ mod math;
 mod neural_network;
 mod activations;
 mod performance;
+mod mnist;

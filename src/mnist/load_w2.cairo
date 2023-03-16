@@ -1,0 +1,117 @@
+use array::ArrayTrait;
+use option::OptionTrait;
+
+use neural_network::math::int33;
+use neural_network::math::int33::i33;
+
+use neural_network::math::matrix::Matrix;
+use neural_network::math::matrix::MatrixTrait;
+
+fn load_W2(rows: usize, cols: usize) -> Matrix {
+
+    let mut tensor = ArrayTrait::new();
+
+    tensor.append(i33 { inner: 33_u32, sign: false });
+    tensor.append(i33 { inner: 10_u32, sign: true });
+    tensor.append(i33 { inner: 63_u32, sign: false });
+    tensor.append(i33 { inner: 12_u32, sign: false });
+    tensor.append(i33 { inner: 34_u32, sign: false });
+    tensor.append(i33 { inner: 6_u32, sign: true });
+    tensor.append(i33 { inner: 14_u32, sign: false });
+    tensor.append(i33 { inner: 115_u32, sign: true });
+    tensor.append(i33 { inner: 33_u32, sign: false });
+    tensor.append(i33 { inner: 17_u32, sign: true });
+    tensor.append(i33 { inner: 40_u32, sign: false });
+    tensor.append(i33 { inner: 34_u32, sign: true });
+    tensor.append(i33 { inner: 50_u32, sign: false });
+    tensor.append(i33 { inner: 26_u32, sign: false });
+    tensor.append(i33 { inner: 33_u32, sign: false });
+    tensor.append(i33 { inner: 26_u32, sign: false });
+    tensor.append(i33 { inner: 108_u32, sign: false });
+    tensor.append(i33 { inner: 18_u32, sign: false });
+    tensor.append(i33 { inner: 23_u32, sign: true });
+    tensor.append(i33 { inner: 80_u32, sign: false });
+    tensor.append(i33 { inner: 37_u32, sign: false });
+    tensor.append(i33 { inner: 46_u32, sign: false });
+    tensor.append(i33 { inner: 56_u32, sign: false });
+    tensor.append(i33 { inner: 18_u32, sign: false });
+    tensor.append(i33 { inner: 35_u32, sign: false });
+    tensor.append(i33 { inner: 36_u32, sign: false });
+    tensor.append(i33 { inner: 55_u32, sign: true });
+    tensor.append(i33 { inner: 104_u32, sign: true });
+    tensor.append(i33 { inner: 49_u32, sign: false });
+    tensor.append(i33 { inner: 8_u32, sign: true });
+    tensor.append(i33 { inner: 47_u32, sign: false });
+    tensor.append(i33 { inner: 78_u32, sign: false });
+    tensor.append(i33 { inner: 55_u32, sign: false });
+    tensor.append(i33 { inner: 22_u32, sign: false });
+    tensor.append(i33 { inner: 33_u32, sign: false });
+    tensor.append(i33 { inner: 74_u32, sign: false });
+    tensor.append(i33 { inner: 6_u32, sign: false });
+    tensor.append(i33 { inner: 87_u32, sign: false });
+    tensor.append(i33 { inner: 29_u32, sign: true });
+    tensor.append(i33 { inner: 107_u32, sign: true });
+    tensor.append(i33 { inner: 41_u32, sign: false });
+    tensor.append(i33 { inner: 44_u32, sign: false });
+    tensor.append(i33 { inner: 61_u32, sign: false });
+    tensor.append(i33 { inner: 25_u32, sign: false });
+    tensor.append(i33 { inner: 19_u32, sign: false });
+    tensor.append(i33 { inner: 110_u32, sign: true });
+    tensor.append(i33 { inner: 59_u32, sign: false });
+    tensor.append(i33 { inner: 21_u32, sign: false });
+    tensor.append(i33 { inner: 46_u32, sign: false });
+    tensor.append(i33 { inner: 30_u32, sign: true });
+    tensor.append(i33 { inner: 46_u32, sign: false });
+    tensor.append(i33 { inner: 42_u32, sign: false });
+    tensor.append(i33 { inner: 62_u32, sign: false });
+    tensor.append(i33 { inner: 20_u32, sign: false });
+    tensor.append(i33 { inner: 31_u32, sign: false });
+    tensor.append(i33 { inner: 127_u32, sign: false });
+    tensor.append(i33 { inner: 94_u32, sign: true });
+    tensor.append(i33 { inner: 14_u32, sign: true });
+    tensor.append(i33 { inner: 80_u32, sign: false });
+    tensor.append(i33 { inner: 83_u32, sign: false });
+    tensor.append(i33 { inner: 37_u32, sign: false });
+    tensor.append(i33 { inner: 20_u32, sign: true });
+    tensor.append(i33 { inner: 63_u32, sign: false });
+    tensor.append(i33 { inner: 17_u32, sign: false });
+    tensor.append(i33 { inner: 27_u32, sign: false });
+    tensor.append(i33 { inner: 116_u32, sign: true });
+    tensor.append(i33 { inner: 24_u32, sign: true });
+    tensor.append(i33 { inner: 106_u32, sign: false });
+    tensor.append(i33 { inner: 70_u32, sign: true });
+    tensor.append(i33 { inner: 32_u32, sign: true });
+    tensor.append(i33 { inner: 42_u32, sign: false });
+    tensor.append(i33 { inner: 33_u32, sign: false });
+    tensor.append(i33 { inner: 51_u32, sign: false });
+    tensor.append(i33 { inner: 21_u32, sign: false });
+    tensor.append(i33 { inner: 24_u32, sign: false });
+    tensor.append(i33 { inner: 116_u32, sign: false });
+    tensor.append(i33 { inner: 12_u32, sign: false });
+    tensor.append(i33 { inner: 25_u32, sign: true });
+    tensor.append(i33 { inner: 29_u32, sign: true });
+    tensor.append(i33 { inner: 17_u32, sign: false });
+    tensor.append(i33 { inner: 41_u32, sign: false });
+    tensor.append(i33 { inner: 3_u32, sign: true });
+    tensor.append(i33 { inner: 59_u32, sign: false });
+    tensor.append(i33 { inner: 24_u32, sign: false });
+    tensor.append(i33 { inner: 33_u32, sign: false });
+    tensor.append(i33 { inner: 50_u32, sign: true });
+    tensor.append(i33 { inner: 8_u32, sign: false });
+    tensor.append(i33 { inner: 95_u32, sign: false });
+    tensor.append(i33 { inner: 117_u32, sign: false });
+    tensor.append(i33 { inner: 111_u32, sign: true });
+    tensor.append(i33 { inner: 45_u32, sign: false });
+    tensor.append(i33 { inner: 91_u32, sign: true });
+    tensor.append(i33 { inner: 55_u32, sign: false });
+    tensor.append(i33 { inner: 27_u32, sign: false });
+    tensor.append(i33 { inner: 25_u32, sign: false });
+    tensor.append(i33 { inner: 44_u32, sign: false });
+    tensor.append(i33 { inner: 72_u32, sign: false });
+    tensor.append(i33 { inner: 78_u32, sign: true });
+    tensor.append(i33 { inner: 19_u32, sign: true });
+    tensor.append(i33 { inner: 48_u32, sign: true });
+
+    MatrixTrait::new(rows, cols, tensor)
+
+}

@@ -22,7 +22,7 @@ Functionalities implemented in Cairo 1.0:
  - [X] Forward propagation of NN.
  - [X] Predict method for NN.
  - [X] [Pseudo-softmax activation](https://www.nature.com/articles/s41598-021-94691-7) optimized for quantized values.
- - [X] Weight loading into Cairo NN from trained Python NN.
+ - [X] Weight loading into Cairo NN from trained Tensorflow NN.
  - [ ] MNIST inferences using Cairo NN.
 
 [Built with **`auditless/cairo-template`**](https://github.com/auditless/cairo-template)

@@ -20,7 +20,6 @@ fn sum_two_vec(vec1: Array::<i33>, vec2: Array::<i33>) -> Array::<i33> {
 fn __sum_two_vec(
     ref vec1: Array::<i33>, ref vec2: Array::<i33>, ref result: Array::<i33>, n: usize, 
 ) {
-
     assert(vec1.len() == vec2.len(), 'Vectors must have the same size');
 
     // --- End of the recursion ---
@@ -115,7 +114,6 @@ fn sum_vec(vec: @Array::<i33>) -> i33 {
 }
 
 fn __sum_vec(vec: @Array::<i33>, ref result: i33, n: usize) {
-
     // --- End of the recursion ---
     if n == vec.len() {
         return ();

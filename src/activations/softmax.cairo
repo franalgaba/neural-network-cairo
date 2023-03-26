@@ -27,7 +27,6 @@ fn softmax(z: @Matrix) -> Matrix {
 }
 
 fn _softmax(z: @Array::<i33>, ref arr: Array::<i33>, min: i33, sum: i33, index: usize) {
-
     if index == z.len() {
         return ();
     }

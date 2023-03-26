@@ -47,7 +47,6 @@ fn quant_vec(ref vec: Array::<i33>) -> Array::<i33> {
 fn __quant_vec(
     ref min_val: i33, ref max_val: i33, ref vec: Array::<i33>, ref result: Array::<i33>, n: usize
 ) {
-
     // --- End of the recursion ---
     if n == vec.len() {
         return ();

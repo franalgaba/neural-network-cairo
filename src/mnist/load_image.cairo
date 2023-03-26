@@ -8,7 +8,6 @@ use neural_network::math::matrix::Matrix;
 use neural_network::math::matrix::MatrixTrait;
 
 fn load_image(rows: usize, cols: usize) -> Matrix {
-
     let mut image = ArrayTrait::new();
 
     image.append(i33 { inner: 0_u32, sign: true });
@@ -209,5 +208,4 @@ fn load_image(rows: usize, cols: usize) -> Matrix {
     image.append(i33 { inner: 0_u32, sign: true });
 
     MatrixTrait::new(rows, cols, image)
-
 }

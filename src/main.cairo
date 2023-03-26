@@ -12,7 +12,6 @@ use neural_network::mnist::load_b2::load_b2;
 use neural_network::mnist::load_image::load_image;
 
 fn main() -> Array::<usize> {
-
     let image = load_image(14_usize, 14_usize);
 
     let W1 = load_W1(10_usize, 196_usize);
@@ -21,6 +20,6 @@ fn main() -> Array::<usize> {
     let b2 = load_b2(1_usize, 10_usize);
 
     let mut nn = NNTrait::new(W1, W2, b1, b2);
-    
+
     nn.predict(@image)
 }

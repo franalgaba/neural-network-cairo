@@ -8,9 +8,8 @@ use neural_network::math::matrix::Matrix;
 use neural_network::math::matrix::MatrixTrait;
 
 fn load_b1(rows: usize, cols: usize) -> Matrix {
-
     let mut tensor = ArrayTrait::new();
-    
+
     tensor.append(i33 { inner: 20_u32, sign: true });
     tensor.append(i33 { inner: 2_u32, sign: true });
     tensor.append(i33 { inner: 486_u32, sign: false });
@@ -23,5 +22,4 @@ fn load_b1(rows: usize, cols: usize) -> Matrix {
     tensor.append(i33 { inner: 2_u32, sign: true });
 
     MatrixTrait::new(rows, cols, tensor)
-
 }

@@ -138,7 +138,6 @@ fn matrix_new(rows: usize, cols: usize, data: Array::<i33>) -> Matrix {
 fn _row_dot_vec(
     self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize, col_index: usize
 ) -> i33 {
-
     // End of the recursion
     if (col_index == *self.cols) {
         return (i33 { inner: 0_u32, sign: true });
@@ -177,7 +176,6 @@ fn _row_dot_vec(
 
 
 fn _dot_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize) {
-
     // End of the recursion
     if row_index == *self.rows {
         return ();
@@ -197,7 +195,6 @@ fn _dot_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: u
 fn _row_add_vec(
     self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize, col_index: usize
 ) {
-
     // End of the recursion
     if (col_index == *self.cols) {
         return ();
@@ -233,7 +230,6 @@ fn _row_add_vec(
 
 
 fn _add_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize) {
-
     // End of the recursion
     if row_index == *self.rows {
         return ();
@@ -257,7 +253,6 @@ fn _row_argmax_vec(
     row_index: usize,
     col_index: usize
 ) {
-
     // End of the recursion
     if (col_index == *self.cols) {
         arr.append(max_index);
@@ -274,7 +269,6 @@ fn _row_argmax_vec(
 
 
 fn _argmax_inner(self: @Matrix, ref arr: Array::<usize>, row_index: usize) {
-
     // End of the recursion
     if row_index == *self.rows {
         return ();

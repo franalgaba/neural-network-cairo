@@ -6,7 +6,7 @@ use neural_network::math::vector::find_min;
 use neural_network::math::vector::sum_vec;
 use neural_network::math::int33::i33;
 
-impl Arrayi33Drop of Drop::<Array::<i33>>;
+// impl Arrayi33Drop of Drop::<Array::<i33>>;
 
 #[test]
 #[available_gas(2000000)]

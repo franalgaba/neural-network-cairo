@@ -17,15 +17,6 @@ fn relu(z: @Matrix) -> Matrix {
 }
 
 fn relu_inner(ref arr: Array::<i33>, input: @Array::<i33>, index: usize, len: usize) {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     if index == len {
         return ();

@@ -3,7 +3,7 @@ use array::ArrayTrait;
 use neural_network::math::int33::i33;
 use neural_network::performance::quantizations::quant_vec;
 
-impl Arrayi33Drop of Drop::<Array::<i33>>;
+// impl Arrayi33Drop of Drop::<Array::<i33>>;
 
 #[test]
 #[available_gas(2000000)]

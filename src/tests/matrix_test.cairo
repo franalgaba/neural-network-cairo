@@ -7,7 +7,7 @@ use neural_network::math::matrix::MatrixTrait;
 use neural_network::math::int33;
 use neural_network::math::int33::i33;
 
-impl Arrayi33Drop of Drop::<Array::<i33>>;
+// impl Arrayi33Drop of Drop::<Array::<i33>>;
 
 #[test]
 #[available_gas(2000000)]

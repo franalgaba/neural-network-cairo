@@ -9,7 +9,7 @@ use neural_network::math::int33::max;
 use neural_network::math::int33::abs;
 use neural_network::math::vector::find_min_max;
 
-impl Arrayi33Drop of Drop::<Array::<i33>>;
+// impl Arrayi33Drop of Drop::<Array::<i33>>;
 
 fn symetric_quant(min_val: i33, max_val: i33, data: i33) -> i33 {
     //  Define quantization range
@@ -47,16 +47,6 @@ fn quant_vec(ref vec: Array::<i33>) -> Array::<i33> {
 fn __quant_vec(
     ref min_val: i33, ref max_val: i33, ref vec: Array::<i33>, ref result: Array::<i33>, n: usize
 ) {
-    // --- Check if out of gas ---
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // --- End of the recursion ---
     if n == vec.len() {

@@ -1,10 +1,9 @@
 use array::ArrayTrait;
+use box::BoxTrait;
 use option::OptionTrait;
 
 use neural_network::math::int33;
 use neural_network::math::int33::i33;
-
-impl Arrayi33Drop of Drop::<Array::<i33>>;
 
 #[derive(Drop)]
 struct Matrix {
@@ -139,15 +138,6 @@ fn matrix_new(rows: usize, cols: usize, data: Array::<i33>) -> Matrix {
 fn _row_dot_vec(
     self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize, col_index: usize
 ) -> i33 {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // End of the recursion
     if (col_index == *self.cols) {
@@ -158,7 +148,7 @@ fn _row_dot_vec(
     // Calculates the product
     match self.data.get(*self.cols * row_index + col_index) {
         Option::Some(x) => {
-            ele = *x;
+            ele = *x.unbox();
         },
         Option::None(_) => {
             let mut data = ArrayTrait::new();
@@ -170,7 +160,7 @@ fn _row_dot_vec(
     let mut other_ele = i33 { inner: 0_u32, sign: true };
     match other.data.get(col_index) {
         Option::Some(x) => {
-            other_ele = *x;
+            other_ele = *x.unbox();
         },
         Option::None(_) => {
             let mut data = ArrayTrait::new();
@@ -187,15 +177,6 @@ fn _row_dot_vec(
 
 
 fn _dot_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize) {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // End of the recursion
     if row_index == *self.rows {
@@ -216,15 +197,6 @@ fn _dot_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: u
 fn _row_add_vec(
     self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize, col_index: usize
 ) {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // End of the recursion
     if (col_index == *self.cols) {
@@ -235,7 +207,7 @@ fn _row_add_vec(
     // Calculates the product
     match self.data.get(*self.cols * row_index + col_index) {
         Option::Some(x) => {
-            ele = *x;
+            ele = *x.unbox();
         },
         Option::None(_) => {
             let mut data = ArrayTrait::new();
@@ -247,7 +219,7 @@ fn _row_add_vec(
     let mut other_ele = i33 { inner: 0_u32, sign: true };
     match other.data.get(*other.cols * row_index + col_index) {
         Option::Some(x) => {
-            other_ele = *x;
+            other_ele = *x.unbox();
         },
         Option::None(_) => {
             let mut data = ArrayTrait::new();
@@ -261,15 +233,6 @@ fn _row_add_vec(
 
 
 fn _add_inner(self: @Matrix, ref arr: Array::<i33>, other: @Matrix, row_index: usize) {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // End of the recursion
     if row_index == *self.rows {
@@ -294,15 +257,6 @@ fn _row_argmax_vec(
     row_index: usize,
     col_index: usize
 ) {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // End of the recursion
     if (col_index == *self.cols) {
@@ -320,15 +274,6 @@ fn _row_argmax_vec(
 
 
 fn _argmax_inner(self: @Matrix, ref arr: Array::<usize>, row_index: usize) {
-    // TODO: Remove when automatically handled by compiler.
-    match gas::get_gas() {
-        Option::Some(_) => {},
-        Option::None(_) => {
-            let mut data = array_new::<felt>();
-            array_append::<felt>(ref data, 'OOG');
-            panic(data);
-        },
-    }
 
     // End of the recursion
     if row_index == *self.rows {

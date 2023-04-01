@@ -1,6 +1,6 @@
 use array::ArrayTrait;
-use neural_network::math::int33;
-use neural_network::math::int33::i33;
+use neural_network::onnx_cairo::operators::math::int33;
+use neural_network::onnx_cairo::operators::math::int33::i33;
 
 //=================================================//
 //=================== SUM VECTORS =================//
@@ -20,6 +20,15 @@ fn sum_two_vec(vec1: Array::<i33>, vec2: Array::<i33>) -> Array::<i33> {
 fn __sum_two_vec(
     ref vec1: Array::<i33>, ref vec2: Array::<i33>, ref result: Array::<i33>, n: usize, 
 ) {
+    match gas::withdraw_gas_all(get_builtin_costs()) {
+        Option::Some(x) => {},
+        Option::None(x) => {
+            let mut data = ArrayTrait::new();
+            data.append('Out of gas');
+            panic(data);
+        },
+    }
+
     assert(vec1.len() == vec2.len(), 'Vectors must have the same size');
 
     // --- End of the recursion ---
@@ -32,43 +41,6 @@ fn __sum_two_vec(
 
     // --- The process is repeated for the remaining elemets in the array --- 
     __sum_two_vec(ref vec1, ref vec2, ref result, n + 1_usize);
-}
-
-
-//=================================================//
-//=================== FIND IN VECTOR ==============//
-//=================================================//
-
-fn find_min_max(ref vec: Array::<i33>) -> (i33, i33) {
-    // Initialize variables.
-    let mut min_value = i33 { inner: 65535_u32, sign: false };
-    let mut max_value = i33 { inner: 65535_u32, sign: true };
-
-    __find_min_max(ref vec, ref min_value, ref max_value, 0_usize, );
-
-    return (min_value, max_value);
-}
-
-fn __find_min_max(ref vec: Array::<i33>, ref min_value: i33, ref max_value: i33, n: usize, ) {
-    // --- End of the recursion ---
-    if n == vec.len() {
-        return ();
-    }
-
-    // --- Check the minimum value and update min_value if necessary --- 
-    let check_min = int33::min(min_value, *vec.at(n));
-    if (min_value != check_min) {
-        min_value = check_min;
-    }
-
-    // --- Check the maximum value and update max_value if necessary --- 
-    let check_max = int33::max(max_value, *vec.at(n));
-    if (max_value != check_max) {
-        max_value = check_max;
-    }
-
-    // --- The process is repeated for the remaining elemets in the array --- 
-    __find_min_max(ref vec, ref min_value, ref max_value, n + 1_usize);
 }
 
 //=====================================================//
@@ -85,6 +57,15 @@ fn find_min(vec: @Array::<i33>) -> i33 {
 }
 
 fn __find_min(vec: @Array::<i33>, ref min_value: i33, n: usize) {
+    match gas::withdraw_gas_all(get_builtin_costs()) {
+        Option::Some(x) => {},
+        Option::None(x) => {
+            let mut data = ArrayTrait::new();
+            data.append('Out of gas');
+            panic(data);
+        },
+    }
+
     // --- End of the recursion ---
     if n == vec.len() {
         return ();
@@ -92,12 +73,50 @@ fn __find_min(vec: @Array::<i33>, ref min_value: i33, n: usize) {
 
     // --- Check the minimum value and update min_value if necessary --- 
     let check_min = int33::min(min_value, *vec.at(n));
-    if (min_value != check_min) {
+    if (min_value > check_min) {
         min_value = check_min;
     }
 
     // --- The process is repeated for the remaining elemets in the array --- 
     __find_min(vec, ref min_value, n + 1_usize);
+}
+
+//=====================================================//
+//=================== FIND MAX IN VECTOR ==============//
+//=====================================================//
+
+fn find_max(vec: @Array::<i33>) -> i33 {
+    // Initialize variables.
+    let mut max_value = i33 { inner: 0_u32, sign: false };
+
+    __find_max(vec, ref max_value, 0_usize);
+
+    return max_value;
+}
+
+fn __find_max(vec: @Array::<i33>, ref max_value: i33, n: usize) {
+    match gas::withdraw_gas_all(get_builtin_costs()) {
+        Option::Some(x) => {},
+        Option::None(x) => {
+            let mut data = ArrayTrait::new();
+            data.append('Out of gas');
+            panic(data);
+        },
+    }
+
+    // --- End of the recursion ---
+    if n == vec.len() {
+        return ();
+    }
+
+    // --- Check the minimum value and update min_value if necessary --- 
+    let check_max = int33::max(max_value, *vec.at(n));
+    if (max_value < check_max) {
+        max_value = check_max;
+    }
+
+    // --- The process is repeated for the remaining elemets in the array --- 
+    __find_max(vec, ref max_value, n + 1_usize);
 }
 
 
@@ -114,6 +133,15 @@ fn sum_vec(vec: @Array::<i33>) -> i33 {
 }
 
 fn __sum_vec(vec: @Array::<i33>, ref result: i33, n: usize) {
+    match gas::withdraw_gas_all(get_builtin_costs()) {
+        Option::Some(x) => {},
+        Option::None(x) => {
+            let mut data = ArrayTrait::new();
+            data.append('Out of gas');
+            panic(data);
+        },
+    }
+
     // --- End of the recursion ---
     if n == vec.len() {
         return ();

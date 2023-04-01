@@ -1,11 +1,11 @@
 use array::ArrayTrait;
 use option::OptionTrait;
 
-use neural_network::math::int33;
-use neural_network::math::int33::i33;
+use neural_network::onnx_cairo::operators::math::int33;
+use neural_network::onnx_cairo::operators::math::int33::i33;
 
-use neural_network::math::matrix::Matrix;
-use neural_network::math::matrix::MatrixTrait;
+use neural_network::onnx_cairo::operators::math::matrix::Matrix;
+use neural_network::onnx_cairo::operators::math::matrix::MatrixTrait;
 
 fn load_image(rows: usize, cols: usize) -> Matrix {
     let mut image = ArrayTrait::new();

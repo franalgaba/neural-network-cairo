@@ -1,12 +1,12 @@
 use array::ArrayTrait;
 use option::OptionTrait;
 
-use neural_network::math::int33;
-use neural_network::math::int33::i33;
-use neural_network::math::matrix::Matrix;
-use neural_network::math::matrix::MatrixTrait;
-use neural_network::activations::relu::relu;
-use neural_network::activations::softmax::softmax;
+use neural_network::onnx_cairo::operators::math::int33;
+use neural_network::onnx_cairo::operators::math::int33::i33;
+use neural_network::onnx_cairo::operators::math::matrix::Matrix;
+use neural_network::onnx_cairo::operators::math::matrix::MatrixTrait;
+use neural_network::onnx_cairo::operators::activations::relu::relu;
+use neural_network::onnx_cairo::operators::activations::softmax::softmax;
 
 
 #[derive(Drop)]
@@ -30,12 +30,13 @@ impl NNImpl of NNTrait {
 
     fn forward_prop(self: @NeuralNetwork, X: @Matrix) -> Matrix {
         let mut Z1_temp = self.W1.dot(X);
-        let mut Z1 = Z1_temp.add(self.b1);
-        let mut A1 = relu(@Z1);
-        let mut Z2_temp = self.W2.dot(@A1);
-        let mut Z2 = Z2_temp.add(self.b2);
-        let mut A2 = softmax(@Z2);
-        A2
+        // let mut Z1 = Z1_temp.add(self.b1);
+        // let mut A1 = relu(@Z1);
+        // let mut Z2_temp = self.W2.dot(@A1);
+        // let mut Z2 = Z2_temp.add(self.b2);
+        // let mut A2 = softmax(@Z2);
+        // A2
+        Z1_temp
     }
 
     fn predict(self: @NeuralNetwork, X: @Matrix) -> Array::<usize> {

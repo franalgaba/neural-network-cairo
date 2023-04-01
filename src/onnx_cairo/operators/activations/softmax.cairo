@@ -2,14 +2,14 @@ use array::ArrayTrait;
 use traits::Into;
 use option::OptionTrait;
 
-use neural_network::math::matrix::Matrix;
-use neural_network::math::matrix::MatrixTrait;
+use neural_network::onnx_cairo::operators::math::matrix::Matrix;
+use neural_network::onnx_cairo::operators::math::matrix::MatrixTrait;
 
-use neural_network::math::int33;
-use neural_network::math::int33::i33;
+use neural_network::onnx_cairo::operators::math::int33;
+use neural_network::onnx_cairo::operators::math::int33::i33;
 
-use neural_network::math::vector::find_min;
-use neural_network::math::vector::sum_vec;
+use neural_network::onnx_cairo::operators::math::vector::find_min;
+use neural_network::onnx_cairo::operators::math::vector::sum_vec;
 
 // The implementation is using pseudo-softmax for now: 
 // x = (x - min(x)) / sum(x)
@@ -27,6 +27,15 @@ fn softmax(z: @Matrix) -> Matrix {
 }
 
 fn _softmax(z: @Array::<i33>, ref arr: Array::<i33>, min: i33, sum: i33, index: usize) {
+    match gas::withdraw_gas_all(get_builtin_costs()) {
+        Option::Some(x) => {},
+        Option::None(x) => {
+            let mut data = ArrayTrait::new();
+            data.append('Out of gas');
+            panic(data);
+        },
+    }
+    
     if index == z.len() {
         return ();
     }

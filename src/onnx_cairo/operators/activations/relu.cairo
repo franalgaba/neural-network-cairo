@@ -2,11 +2,11 @@ use array::ArrayTrait;
 use traits::Into;
 use option::OptionTrait;
 
-use neural_network::math::matrix::Matrix;
-use neural_network::math::matrix::MatrixTrait;
+use neural_network::onnx_cairo::operators::math::matrix::Matrix;
+use neural_network::onnx_cairo::operators::math::matrix::MatrixTrait;
 
-use neural_network::math::int33;
-use neural_network::math::int33::i33;
+use neural_network::onnx_cairo::operators::math::int33;
+use neural_network::onnx_cairo::operators::math::int33::i33;
 
 
 fn relu(z: @Matrix) -> Matrix {
@@ -17,6 +17,15 @@ fn relu(z: @Matrix) -> Matrix {
 }
 
 fn relu_inner(ref arr: Array::<i33>, input: @Array::<i33>, index: usize, len: usize) {
+    match gas::withdraw_gas_all(get_builtin_costs()) {
+        Option::Some(x) => {},
+        Option::None(x) => {
+            let mut data = ArrayTrait::new();
+            data.append('Out of gas');
+            panic(data);
+        },
+    }
+    
     if index == len {
         return ();
     }
